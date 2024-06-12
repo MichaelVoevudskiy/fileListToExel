@@ -1,7 +1,8 @@
 asd = {
     "name" : '''
     asdasd
-    asddasd'''
+    asddasd''',
+    "name2" : '2'
 }
 
-print(asd["name"])
+print(asd)
