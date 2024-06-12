@@ -21,18 +21,41 @@ Copy all Filenames in a Folder to Excel
 '---------------''---------------''---------------''---------------' 
                                 https://github.com/MichaelVoevudskiy
 ''')
-
 time.sleep(0.5)
 
-print(Fore.YELLOW,'''
-+------------------------------------------------------------------+   
-|    Що я вмію робити:                                             |
-+------------------------------------------------------------------+''', Fore.LIGHTYELLOW_EX,'''
-|    Я створюю Exel файл із переліком файлів.                      |
-|    Використовуй мене для прорахунку замовлень                    |
-|    або для створення комерційних пропозицій.                     |
-+------------------------------------------------------------------+    
-    ''')
+
+ua = {
+    "annotation" : '''Що я вмію робити:
+    Я створюю перелік файлів із вказаної папки та завантажую її в Exel файл
+    1. Вкажіть шлях до директорії з файлами
+    2. Вкажіть назву файлу Exel'''
+}
+
+en = {
+    "annotation" : '''What I can do:
+    I create a list of files from the specified folder and upload it to an Excel file
+    1. Specify the path to the directory with files
+    2. Specify the name of the Excel file'''
+}
+
+
+def choose_language():
+    print(Fore.WHITE, "Choose language: ""[1] - Eng "" [2] - Ua", end=":  ")
+    leng = input()
+    mess = check_language(leng)
+    return mess
+
+def check_language(leng):
+    if (leng=='2'):
+        mess = ua["annotation"]
+    elif (leng=='1'):
+        mess = en["annotation"]
+    else:
+        choose_language()
+    return mess
+
+
+print(Fore.YELLOW, choose_language())
 
 
 
@@ -79,13 +102,13 @@ try:
 
 
 
-    # Получаем список файлов в папке
+    # Отримуємо список файлів у папці
     file_list = os.listdir(folder_path)
 
-    # Заголовки для столбцов
+    # Заголовки для стовпців
     headers = {"Имена файлов": "Файли"}
 
-    # Создаем файл XLSX
+    # Створюємо файл XLSX
     create_xlsx_file(output_file_path, headers, file_list)
 
     time.sleep(0.5)
@@ -102,9 +125,5 @@ try:
 
 except KeyboardInterrupt:
     print(Fore.RED,'Ви скасували операцію.',Fore.WHITE)
-
-
-
-
 
 input()
