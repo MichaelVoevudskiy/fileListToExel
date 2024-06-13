@@ -16,5 +16,8 @@ this open source project.
 
 
 Це безкоштовна програма з відкритим кодом. Створена для швидкого копіювання переліку файлів з вказаної папки в exel файл.
-Можете завантажити та запустити файл exe
-Або запустити файл через командну строку  .py (треба встановлений python, XlsxWriter, та colorama)
+Можете завантажити та запустити файл FileListToExel_v01.exe
+Або запустити файл через командну строку  FileListToExel_v01.py (треба встановлений python, XlsxWriter, та colorama)
+
+![image](https://github.com/MichaelVoevudskiy/fileListToExel/assets/104004526/0f177e1b-7245-4559-ac00-d008c3b58342)
+
