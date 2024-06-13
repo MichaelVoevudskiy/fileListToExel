@@ -8,6 +8,49 @@ os.system('cls')
 
 selected_language = ''
 
+ua = {
+    "annotMs" : '''
+    Що я вмію робити:
+    Я створюю перелік файлів із вказаної папки та завантажую її в 
+    Exel файл
+    
+    1. Вкажіть шлях до директорії з файлами
+    2. Вкажіть назву файлу Exel
+    
+    Вихід - [ctr + C]
+    ''',
+    'dirMs':'''Вкажіть шлях до директорії: ''',
+    'dirExMs':'''(приклад:  D:\doc\main  )''',
+    'dirDisMs':'''   Ти не вказав шлях до директорії.
+        Створюю з директорії в якій я знаходжусь:''',
+    'fileNameMs': "перелік_файлів.xlsx", #
+    'UserfileNameMs':'''   Ти не вказав назву.''',
+    'DefFileNameMs':'''Назвемо файл'''
+}
+
+en = {
+    "annotMs" : '''
+    What I can do:
+    I create a list of files from the specified folder and upload 
+    it to an Excel file
+    
+    1. Specify the path to the directory with files
+    2. Specify the name of the Excel file
+    
+    Exit - [ctr + C]
+
+    PS: I would be grateful for financial support
+    BTC - bc1q84fp5ws486s73xmymdfena0yw05lqrgx87efjd
+    ''',
+    'dirMs':'''Send folder path: ''',
+    'dirExMs':'''(Example:  D:\doc\main  )''',
+    'dirDisMs':'''   You didn’t send the path to the folder.
+        I take the path I'm in:''',
+    'fileNameMs': "file_list.xlsx", #
+    'UserfileNameMs':'''   You didn't specify a name.''',
+    'DefFileNameMs':'''Let's name the file'''
+}
+
 print(Fore.LIGHTYELLOW_EX, '''
 Copy all Filenames in a Folder to Excel
 .---------------..---------------..---------------..---------------. 
@@ -16,7 +59,7 @@ Copy all Filenames in a Folder to Excel
 || |_   ___  | ||||  |_   _|    |||| |  _   _  | |||| |_   ___  | ||
 ||   | |_  |_| ||||    | |      |||| |_| | | |_| ||||   | |_  |_| ||
 ||   |  _|     ||||    | |   _  ||||     | |     ||||   |  _|  _  ||
-||  _| |_      ||||   _| |__/ | ||||    _| |_    ||||  _| |___/ | ||
+||  _| |_      ||||   _| |__| | ||||    _| |_    ||||  _| |___| | ||
 || |_____|     ||||  |________| ||||   |_____|   |||| |_________| ||
 ||             ||||             ||||             ||||             ||
 |'-------------'||'-------------'||'-------------'||'-------------'|
@@ -26,34 +69,11 @@ Copy all Filenames in a Folder to Excel
 time.sleep(0.5)
 
 
-ua = {
-    "annotMs" : '''Що я вмію робити:
-    Я створюю перелік файлів із вказаної папки та завантажую її в Exel файл
-    1. Вкажіть шлях до директорії з файлами
-    2. Вкажіть назву файлу Exel''',
-    'dirMs':'''Вкажіть шлях до директорії: ''',
-    'dirExMs':'''(приклад:  D:\doc\main  )''',
-    'dirDisMs':'''   Ти не вказав шлях до директорії.
-        Створюю з директорії в якій я знаходжусь:'''
-}
-
-en = {
-    "annotMs" : '''What I can do:
-    I create a list of files from the specified folder and upload it to an 
-    Excel file
-    1. Specify the path to the directory with files
-    2. Specify the name of the Excel file''',
-    'dirMs':'''Send folder path: ''',
-    'dirExMs':'''(Example:  D:\doc\main  )''',
-    'dirDisMs':'''   You didn’t send the path to the folder.
-        I take the path I'm in:'''
-}
-
 
 def choose_language():
-    print(Fore.WHITE, "Choose language: ""[1] - Eng "" [2] - Ua", end=":  ")
+    print(Fore.WHITE, "Choose language: ",Fore.YELLOW,"[1] - Eng "" [2] - Ua", end=":  ")
     getleng = input()
-    mess = check_language(getleng)
+    check_language(getleng)
 
 def check_language(getleng):
     global selected_language
@@ -65,8 +85,8 @@ def check_language(getleng):
         choose_language()
 
 
-choose_language()
-print(Fore.YELLOW, selected_language['annotMs'] )
+
+
 
 
 
@@ -87,6 +107,8 @@ def create_xlsx_file(file_path: str, headers: dict, items: list):
     workbook.close()
 
 try:
+    choose_language()
+    print(Fore.YELLOW, selected_language['annotMs'] )
     # Вкажіть шлях до папки, для якої потрібно створити список файлів
     print(Fore.WHITE, selected_language['dirMs'] ,Fore.YELLOW, selected_language['dirExMs'])
     print(Fore.WHITE)
@@ -103,9 +125,9 @@ try:
     output_file_path = input()
 
     if (output_file_path == ''):
-        output_file_path = "перелік_файлів.xlsx"
-        print(Fore.RED,'''   Ти не вказав назву.''',Fore.WHITE,
-        '''Назвемо файл''',Fore.YELLOW, output_file_path)
+        output_file_path = selected_language['fileNameMs']
+        print(Fore.RED, selected_language['UserfileNameMs'], Fore.WHITE)
+        print(selected_language['DefFileNameMs'], Fore.YELLOW, output_file_path)
         
     else:
         output_file_path = folder_path + "/" + output_file_path +".xlsx"
@@ -116,7 +138,7 @@ try:
     file_list = os.listdir(folder_path)
 
     # Заголовки для стовпців
-    headers = {"Имена файлов": "Файли"}
+    headers = {"Ім'я файлів": "Файли"}
 
     # Створюємо файл XLSX
     create_xlsx_file(output_file_path, headers, file_list)
@@ -124,16 +146,15 @@ try:
     time.sleep(0.5)
     print(Fore.GREEN)
 
-    print('''
+    print(f'''
     ____________________________________________________________
-        Файл {} успішно створено
-        Перелік файлів з папки {}
+        {output_file_path} successfully created
+        File List from the folder {folder_path}
     ____________________________________________________________
-        
-        Гарного трудового дня!!!
-        '''.format(output_file_path, folder_path))
+        Have a nice day
+        ''')
 
 except KeyboardInterrupt:
-    print(Fore.RED,'Ви скасували операцію.',Fore.WHITE)
+    print(Fore.RED,'goodbye',Fore.WHITE)
 
 input()
