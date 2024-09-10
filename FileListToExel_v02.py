@@ -142,7 +142,7 @@ try:
     file_list = os.listdir(folder_path)
 
 
-
+    #СОРТУВАННЯ
     file_list2 = []
 
     for file in file_list:
