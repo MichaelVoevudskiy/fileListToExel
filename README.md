@@ -11,8 +11,7 @@ this open source project.
     
     Exit - [ctr + C]
 
-    PS: I would be grateful for financial support
-    BTC - bc1q84fp5ws486s73xmymdfena0yw05lqrgx87efjd
+
 
 
 Це безкоштовна програма з відкритим кодом. Створена для швидкого копіювання переліку файлів з вказаної папки в exel файл.
